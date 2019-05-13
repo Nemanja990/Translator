@@ -1,0 +1,55 @@
+﻿@model Translator.Web.Models.TranslateInfoViewModel
+
+@{
+    ViewBag.Title = "TextTranslated";
+}
+
+<div style="height:400px;">
+    <p style="font-size:20px;">Your final translation is: "@Html.DisplayFor(model => model._text)"</p>
+</div>
+@Html.HiddenFor(model => model._lang, new { @id = "langInfo" })
+@Html.HiddenFor(model => model._code, new { @id = "codeInfo" })
+@Html.HiddenFor(model => model._text, new { @id = "textInfo" })
+@Html.HiddenFor(model => model._from, new { @id = "fromInfo" })
+
+@section apiCall{
+    <script>
+        $(document).ready(function () {
+            var TranslationInfo = new Object();
+            TranslationInfo.Text = $("#textInfo").val();
+            TranslationInfo.Lang = $("#langInfo").val();
+            TranslationInfo.Code = $("#codeInfo").val();
+            TranslationInfo.From = $("#fromInfo").val();
+            $.ajax({
+                url: "https://translatorapi20190512062022.azurewebsites.net/api/SaveData", //"http://localhost:59598/api/SaveData",
+                type: "POST",
+                datatype: "json",
+                data: TranslationInfo,
+                success: function (data, textStatus, xhr) {
+                    console.log(data);
+                    download("Translations", data);
+                    //debugger;
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                    //debugger;
+                }
+            });
+        });
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'application/octet-stream');
+            element.setAttribute('download', filename);
+            element.innerText = text;
+
+            //element.style.display = 'none';
+            document.body.appendChild(element);
+
+            //element.click();
+
+            //document.body.removeChild(element);
+        }
+    </script>
+}
+

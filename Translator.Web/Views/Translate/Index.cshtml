@@ -1,0 +1,93 @@
+﻿@model Translator.Web.Models.TranslateViewModel
+
+@{
+    ViewBag.Title = "Translate";
+}
+@using (Html.BeginForm("TextTranslated", "Translate", FormMethod.Post))
+{
+    <div class="row">
+        <div class="card cardStyle">
+            @Html.ValidationMessageFor(model => model.Text)
+            @Html.TextBoxFor(model => model.Text, new { @class = "txtBox" })
+        </div>
+    </div>
+    <br /><br />
+    <div class="row" style="margin-bottom:100px;">
+        <p style="font-size:25px; font-weight:bold;">Translated Text: <span id="myText"></span></p>
+    </div>
+    <div class="row text-right" style="margin-bottom:100px;">
+        <button type="submit" class="btn btn-warning">OK - continue</button>
+    </div>
+}
+
+@section ajaxCall{
+    <script>
+        $(document).ready(function () {
+            (function ($) {
+                $.fn.donetyping = function (callback) {
+                    var _this = $(this);
+                    var x_timer;
+                    _this.keyup(function () {
+                        clearTimeout(x_timer);
+                        x_timer = setTimeout(clear_timer, 3000);
+                    });
+
+                    function clear_timer() {
+                        clearTimeout(x_timer);
+                        callback.call(_this);
+                    }
+                }
+            })(jQuery);
+
+            $('.txtBox').donetyping(function (callback) {
+                var txt = $('.txtBox').val();
+                $('#myText').text('');
+
+                //var res = GetValueFromDb(txt);
+                //debugger;
+                if (txt.length > 0) {
+                    //if (res == "No") {
+                        //debugger;
+                        $.ajax({
+                            url: "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190511T143454Z.288376b40efe0f5c.33c3a0b78ea83e85ca44d964e6f569d7adf73238&text=" + txt + "&lang=en",
+                            type: "GET",
+                            datatype: "json",
+                            success: function (data, textStatus, xhr) {
+                                $('#myText').append(data.text[0]);
+                                console.log(data);
+                            },
+                            error: function (xhr, textStatus, errorThrown) {
+                                console.log("Error");
+                            }
+                        });
+                    //}
+                    //else {
+                        //$('#myText').append(res);
+                    //}
+                }
+            });
+
+            function GetValueFromDb(txt) {
+
+                //var Stringclass = new Object();
+                //Stringclass.Text = txt;
+                //var returnData = "No";
+                //$.ajax({
+                //    url: "http://localhost:59598/api/GetData",
+                //    type: "POST",
+                //    datatype: "json",
+                //    data: Stringclass,
+                //    success: function (data, textStatus, xhr) {
+                //        debugger;
+                //        return (data);
+                //    },
+                //    error: function (xhr, textStatus, errorThrown) {
+                //        debugger;
+                //        return (xhr);
+                //    }
+                //});                
+            }
+        });
+
+    </script>
+}

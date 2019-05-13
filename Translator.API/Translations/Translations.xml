@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<translations>
+  <translation timestamp="2019-05-12 19:36:56" id="1">
+    <from>Dobar dan</from>
+    <to>A good day</to>
+  </translation>
+  <translation timestamp="2019-05-13 00:07:16" id="2">
+    <from>Dobar dan. Da li zelite sladoled? Ja mislim da to nije u redu!</from>
+    <to>Good day. If you want ice cream? I think that's not right!</to>
+  </translation>
+  <translation timestamp="2019-05-13 00:40:00" id="3">
+    <from>Nemanja je ovde</from>
+    <to>Nemanja here</to>
+  </translation>
+  <translation timestamp="2019-05-13 00:42:10" id="4">
+    <from>Gde sta kako</from>
+    <to>Where what how</to>
+  </translation>
+</translations>
