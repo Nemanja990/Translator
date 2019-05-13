@@ -92,9 +92,9 @@ namespace Translator.API.Business
             {
                 Directory.CreateDirectory(HttpContext.Current.Server.MapPath(@"~\Translations\"));
             }
-
+          
             if (File.Exists(path))
-            {
+            {                
                 return path;
             }
 

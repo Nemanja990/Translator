@@ -38,17 +38,21 @@
         });
 
         function download(filename, text) {
-            var element = document.createElement('a');
-            element.setAttribute('href', 'application/octet-stream');
-            element.setAttribute('download', filename);
-            element.innerText = text;
+            var pom = document.createElement('a');
 
-            //element.style.display = 'none';
-            document.body.appendChild(element);
+            var fileName = "file.xml";
+            var bb = new Blob([text], { type: 'text/xml' });
 
-            //element.click();
+            pom.setAttribute('href', window.URL.createObjectURL(bb));
+            pom.setAttribute('download', filename);
 
-            //document.body.removeChild(element);
+            pom.dataset.downloadurl = ['text/xml', pom.download, pom.href].join(':');
+            pom.draggable = true;
+            pom.classList.add('dragout');
+
+            pom.click();
+
+            document.body.removeChild(pom);
         }
     </script>
 }
