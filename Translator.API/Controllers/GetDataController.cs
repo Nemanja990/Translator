@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Translator.API.Business;
@@ -18,7 +19,7 @@ namespace Translator.API.Controllers
     [EnableCors("*", "*", "*")]
     public class GetDataController : ApiController
     {
-        public static string FilePath = ConfigurationManager.AppSettings["FilePath"] + "Translations.xml";
+        public static string FilePath = HttpContext.Current.Server.MapPath(@"~\Translations\") + "Translations.xml";
 
         // GET: api/GetData
         public IEnumerable<string> Get()
