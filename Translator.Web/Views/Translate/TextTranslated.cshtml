@@ -26,13 +26,10 @@
                 datatype: "json",
                 data: TranslationInfo,
                 success: function (data, textStatus, xhr) {
-                    console.log(data);
                     download("Translations", data);
-                    //debugger;
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log('Error in Operation');
-                    //debugger;
                 }
             });
         });

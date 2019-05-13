@@ -18,7 +18,6 @@
     <div class="row text-right" style="margin-bottom:100px;">
         <button type="submit" class="btn btn-warning">OK - continue</button>
     </div>
-    <p id="valHid" hidden="hidden"></p>
 }
 
 @section ajaxCall{
@@ -59,7 +58,6 @@
                     datatype: "json",
                     data: Stringclass,
                     success: function (data, textStatus, xhr) {
-                        //console.log(data);
                         if (data == "No") {
                             $.ajax({
                                 url: "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20190511T143454Z.288376b40efe0f5c.33c3a0b78ea83e85ca44d964e6f569d7adf73238&text=" + txt + "&lang=en",
@@ -67,10 +65,9 @@
                                 datatype: "json",
                                 success: function (dataInner, textStatus, xhr) {
                                     $('#myText').append(dataInner.text[0]);
-                                    //console.log(data);
                                 },
                                 error: function (xhr, textStatus, errorThrown) {
-                                    //console.log("Error");
+                                    console.log("Error");
                                 }
                             });
                         }
@@ -79,7 +76,6 @@
                         }
                     },
                     error: function (xhr, textStatus, errorThrown) {
-                        debugger;
                         return (xhr);
                     }
                 });
